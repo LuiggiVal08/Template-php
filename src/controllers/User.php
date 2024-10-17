@@ -13,7 +13,7 @@ class UserController
     public function getAll()
     {
         $users = User::all();
-        return $users;
+        return responseController(null, $users, 200);
     }
 
     // Obtener un usuario por ID
@@ -21,9 +21,9 @@ class UserController
     {
         try {
             $user = User::findOrFail($id);
-            return $user;
+            return responseController(null, $user, 200);
         } catch (ModelNotFoundException $e) {
-            return ['error' => 'User not found'];
+            return responseController('User not found', null, 404);
         }
     }
 
@@ -31,7 +31,7 @@ class UserController
     public function create($data)
     {
         $user = User::create($data);
-        return $user;
+        responseController(null, $user, 201);
     }
 
     // Actualizar un usuario existente
@@ -40,9 +40,9 @@ class UserController
         try {
             $user = User::findOrFail($id);
             $user->update($data);
-            return $user;
+            return responseController(null, $user, 200);
         } catch (ModelNotFoundException $e) {
-            return ['error' => 'User not found'];
+            return responseController('User not found', null, 404);
         }
     }
 
@@ -52,9 +52,9 @@ class UserController
         try {
             $user = User::findOrFail($id);
             $user->delete();
-            return ['message' => 'User deleted successfully'];
+            return responseController(null, 'deleted successfully', 200);
         } catch (ModelNotFoundException $e) {
-            return ['error' => 'User not found'];
+            return responseController('User not found', null, 404);
         }
     }
 }

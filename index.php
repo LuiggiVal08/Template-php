@@ -14,11 +14,11 @@ use Illuminate\Database\QueryException;
 $dotenv = Dotenv::createImmutable(__DIR__);
 $dotenv->load();
 
-require './src/config/db.php';
+require_once 'src/helpers/index.php';
 
+require './src/config/db.php';
 require './src/router/index.php';
 require './src/view_router.php';
-require_once 'src/helpers/index.php';
 
 // Flight::map('error', function (Exception $ex) {
 //     global $log;
